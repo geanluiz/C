@@ -4,17 +4,17 @@
 void head();
 void genMatrix();
 void printMatrix();
-void userPlay(char p, int pos);
-int checkWin(char p);
+int userPlay(char p);
+void checkWin(int *p);
+void checkEnd();
+void incPlay(char p);
 
 char matrix[3][3];
-char (*ptr)[3] = matrix;
 
 int intPlayer = 1;
 int position;
-//char doContinue = 'S';
 int endGame = 0;
-int turns = 0;
+int turns = 1;
 
 int main(void)
 {
@@ -25,38 +25,28 @@ int main(void)
     
     do
     {
+        system("clear");
         head();
 
         printf("\nPlayer %i\n", intPlayer);
         printf("Type the number of the position you wanna play.\n");
         printMatrix();
+        printf("\n%i\n", endGame);
         
         charPlayer = (intPlayer == 1) ? 'X': '0';
+        
+        userPlay(charPlayer);
 
-        scanf(" %i", &position);
-        userPlay(charPlayer, position);
+        checkWin(&endGame);
+        checkEnd();
+
         turns++;
-        checkWin(charPlayer);
-
-        if (endGame == 3)
-        {
-            head();
-            printf("\nTIE!\n\n");
-            printMatrix();
-        }
-
-        //printf("Continuar?(S/N)\n");
-        //scanf(" %c", &doContinue);
-
-        intPlayer = (intPlayer == 1) ? 2: 1;
-    }while (endGame == 0);
-    head();
-    printMatrix();
+        intPlayer = ((turns % 2) == 0) ? 1: 2;
+    }while(endGame == 0);
 }
 
 void head()
 {
-    system("clear");
     printf("--------------\n");
     printf(" TIC TAC TOE!\n");
     printf("--------------\n");
@@ -96,120 +86,183 @@ void printMatrix()
     printf("\n");
 }
 
-void userPlay(char p, int pos)
+int userPlay(char p)
 {
-    switch (pos)
+    scanf(" %i", &position);
+    switch (position)
     {
         case 1:
-            matrix[0][0] = p;
+            if (matrix[0][0] == '1')
+            {
+                matrix[0][0] = p;
+            }
+            else
+            {
+                incPlay(p);
+            }
             break;
 
         case 2:
-            matrix[0][1] = p;
+            if (matrix[0][1] == '2')
+            {  
+                matrix[0][1] = p;
+            }
+            else
+            {
+                incPlay(p);
+            }
             break;
 
         case 3:
-            matrix[0][2] = p;
+            if (matrix[0][2] == '3')
+            { 
+                matrix[0][2] = p;
+            }
+            else
+            {
+                incPlay(p);
+            }
             break;
 
         case 4:
-            matrix[1][0] = p;
+            if (matrix[1][0] == '4')
+            { 
+                matrix[1][0] = p;
+            }
+            else
+            {
+                incPlay(p);
+            }
             break;
 
         case 5:
-            matrix[1][1] = p;
+            if (matrix[1][1] == '5')
+            { 
+                matrix[1][1] = p;
+            }
+            else
+            {
+                incPlay(p);
+            }
             break;
 
         case 6:
-            matrix[1][2] = p;
+            if (matrix[1][2] == '6')
+            { 
+                matrix[1][2] = p;
+            }
+            else
+            {
+                incPlay(p);
+            }
             break;
 
         case 7:
-            matrix[2][0] = p;
+            if (matrix[2][0] == '7')
+            { 
+                matrix[2][0] = p;
+            }
+            else
+            {
+                incPlay(p);
+            }
             break;
 
         case 8:
-            matrix[2][1] = p;
+            if (matrix[2][1] == '8')
+            { 
+                matrix[2][1] = p;
+            }
+            else
+            {
+                incPlay(p);
+            }
             break;
 
         case 9:
-            matrix[2][2] = p;
+            if (matrix[2][2] == '9')
+            { 
+                matrix[2][2] = p;
+            }
+            else
+            {
+                incPlay(p);
+            }
             break;
     }
 }
 
-int checkWin(char p)
+void incPlay(char p)
+{
+    system("clear");
+    head();
+    printf("\nPosition already in use, choose another!\n\n");
+    printMatrix();
+    userPlay(p);
+}
+
+void checkWin(int *p)
 {
     if (turns < 5)
     {
-        endGame = 0;
+        *p = 0;
     }
-    else if (turns > 8)
+    if (turns > 8)
     {
-        endGame = 3;
+        *p = 3;
     }
-    else if (turns % 2 != 0)
-    {
-        if (matrix[0][0] == matrix[0][1] && matrix[0][1] == matrix[0][2]) // ??
+    /* else
+    { */
+        if ((matrix[0][0] == matrix[0][1]) && (matrix[0][1] == matrix[0][2])) // First row
         {
-            endGame = 1;
+            *p = (matrix[0][0] == 'X')? 1 : 2;
         }
-    }
-
-    return 1;
+        if (matrix[1][0] == matrix[1][1] && matrix[1][1] == matrix[1][2])// Second row
+        {
+            *p = (matrix[1][0] == 'X')? 1 : 2;
+        }
+        if (matrix[2][0] == matrix[2][1] && matrix[2][1] == matrix[2][2])// Third row
+        {
+            *p = (matrix[2][0] == 'X')? 1 : 2;
+        }
+        if (matrix[0][0] == matrix[1][0] && matrix[1][0] == matrix[2][0]) // First column
+        {
+            *p = (matrix[0][0] == 'X')? 1 : 2;
+        }
+        if (matrix[0][1] == matrix[1][1] && matrix[1][1] == matrix[2][1]) // Second column
+        {
+            *p = (matrix[0][1] == 'X')? 1 : 2;
+        }
+        if (matrix[0][2] == matrix[1][2] && matrix[1][2] == matrix[2][2]) // Third column
+        {
+            *p = (matrix[0][2] == 'X')? 1 : 2;
+        }
+        if (matrix[0][0] == matrix[1][1] && matrix[1][1] == matrix[2][2]) // Main diagonal
+        {
+            *p = (matrix[0][0] == 'X')? 1 : 2;
+        }
+        if (matrix[2][0] == matrix[1][1] && matrix[1][1] == matrix[0][2]) // Secondary diagonal
+        {
+            *p = (matrix[2][0] == 'X')? 1 : 2;
+        }
+    /* } */
 }
 
-
-
-
-
-
-
-
-
-
-
-
-/* 
-
-Create heading
-
-declare matrix[][]
-
-Create matrix function with numbers inside positions
-    c = 0 
-    for i 0 to 3
-    for j 0 to 3
-        matrix i j = c++
-
-create userPlay
-    switch case to change matrix content with cordinates 
-    acording to option selected by user
-
-Read input from user to start game
-
-curr = X
-loop do 
-    print heading and matrix
-
-    if curr = X
-    Read input from player #1 as "X"
-        call userPlay function with x and position as parameters
-        call function to check if X won
-        curr = O
-
-    else
-    Read input from player #2 as "O"
-        call userPlay function with x and position as parameters
-        call function to check if "O" won
-        curr = X
-
-while (not win or tie)
-endLoop
-
-print win or tie
-
-ask if user wants to play again then
-Call create matrix function if yes
-
-*/
+void checkEnd()
+{
+    if (endGame == 3)
+    {
+        system("clear");
+        head();
+        printf("\nTIE!\n\n");
+        printMatrix();
+    }
+    else if (endGame == 1 || endGame == 2)
+    {
+        system("clear");
+        head();
+        printf("\nPlayer %i wins!\n", endGame);
+        printMatrix();
+    }
+    printf("\n%i\n", endGame);
+}
