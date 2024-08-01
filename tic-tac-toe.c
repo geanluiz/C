@@ -4,7 +4,7 @@
 void head();
 void genMatrix();
 void printMatrix();
-int userPlay(char p);
+void userPlay(char p);
 void checkWin(int *p);
 void checkEnd();
 void incPlay(char p);
@@ -31,7 +31,6 @@ int main(void)
         printf("\nPlayer %i\n", intPlayer);
         printf("Type the number of the position you wanna play.\n");
         printMatrix();
-        printf("\n%i\n", endGame);
         
         charPlayer = (intPlayer == 1) ? 'X': '0';
         
@@ -41,7 +40,7 @@ int main(void)
         checkEnd();
 
         turns++;
-        intPlayer = ((turns % 2) == 0) ? 1: 2;
+        intPlayer = ((turns % 2) == 0) ? 2: 1;
     }while(endGame == 0);
 }
 
@@ -86,7 +85,7 @@ void printMatrix()
     printf("\n");
 }
 
-int userPlay(char p)
+void userPlay(char p)
 {
     scanf(" %i", &position);
     switch (position)
@@ -211,41 +210,39 @@ void checkWin(int *p)
     {
         *p = 3;
     }
-    /* else
-    { */
-        if ((matrix[0][0] == matrix[0][1]) && (matrix[0][1] == matrix[0][2])) // First row
-        {
-            *p = (matrix[0][0] == 'X')? 1 : 2;
-        }
-        if (matrix[1][0] == matrix[1][1] && matrix[1][1] == matrix[1][2])// Second row
-        {
-            *p = (matrix[1][0] == 'X')? 1 : 2;
-        }
-        if (matrix[2][0] == matrix[2][1] && matrix[2][1] == matrix[2][2])// Third row
-        {
-            *p = (matrix[2][0] == 'X')? 1 : 2;
-        }
-        if (matrix[0][0] == matrix[1][0] && matrix[1][0] == matrix[2][0]) // First column
-        {
-            *p = (matrix[0][0] == 'X')? 1 : 2;
-        }
-        if (matrix[0][1] == matrix[1][1] && matrix[1][1] == matrix[2][1]) // Second column
-        {
-            *p = (matrix[0][1] == 'X')? 1 : 2;
-        }
-        if (matrix[0][2] == matrix[1][2] && matrix[1][2] == matrix[2][2]) // Third column
-        {
-            *p = (matrix[0][2] == 'X')? 1 : 2;
-        }
-        if (matrix[0][0] == matrix[1][1] && matrix[1][1] == matrix[2][2]) // Main diagonal
-        {
-            *p = (matrix[0][0] == 'X')? 1 : 2;
-        }
-        if (matrix[2][0] == matrix[1][1] && matrix[1][1] == matrix[0][2]) // Secondary diagonal
-        {
-            *p = (matrix[2][0] == 'X')? 1 : 2;
-        }
-    /* } */
+
+    if ((matrix[0][0] == matrix[0][1]) && (matrix[0][1] == matrix[0][2])) // First row
+    {
+        *p = (matrix[0][0] == 'X')? 1 : 2;
+    }
+    if (matrix[1][0] == matrix[1][1] && matrix[1][1] == matrix[1][2])// Second row
+    {
+        *p = (matrix[1][0] == 'X')? 1 : 2;
+    }
+    if (matrix[2][0] == matrix[2][1] && matrix[2][1] == matrix[2][2])// Third row
+    {
+        *p = (matrix[2][0] == 'X')? 1 : 2;
+    }
+    if (matrix[0][0] == matrix[1][0] && matrix[1][0] == matrix[2][0]) // First column
+    {
+        *p = (matrix[0][0] == 'X')? 1 : 2;
+    }
+    if (matrix[0][1] == matrix[1][1] && matrix[1][1] == matrix[2][1]) // Second column
+    {
+        *p = (matrix[0][1] == 'X')? 1 : 2;
+    }
+    if (matrix[0][2] == matrix[1][2] && matrix[1][2] == matrix[2][2]) // Third column
+    {
+        *p = (matrix[0][2] == 'X')? 1 : 2;
+    }
+    if (matrix[0][0] == matrix[1][1] && matrix[1][1] == matrix[2][2]) // Main diagonal
+    {
+        *p = (matrix[0][0] == 'X')? 1 : 2;
+    }
+    if (matrix[2][0] == matrix[1][1] && matrix[1][1] == matrix[0][2]) // Secondary diagonal
+    {
+        *p = (matrix[2][0] == 'X')? 1 : 2;
+    }
 }
 
 void checkEnd()
