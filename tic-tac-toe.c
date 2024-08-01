@@ -1,17 +1,25 @@
+// Tic Tac Toe game created from scratch
+// As a final project to the course on programing logic
+// Of the Youtube channel 'Curso em Vídeo" by Gustavo Guanabara
+
 #include <stdio.h>
 #include <stdlib.h>
 
-void head();
+
+void clearScr();
+void header();
 void genMatrix();
 void printMatrix();
-void userPlay(char p);
-void checkWin(int *p);
+void userChoice(char p);
+void choiceErr(char p);
+void checkWin(int *p_endGame);
 void checkEnd();
-void incPlay(char p);
 
+// Board
 char matrix[3][3];
 
-int intPlayer = 1;
+// Variables
+int playerNum = 1;
 int position;
 int endGame = 0;
 int turns = 1;
@@ -20,31 +28,43 @@ int main(void)
 {
     char charPlayer = 'X';
 
-    head();
+    header();
     genMatrix();
     
     do
     {
-        system("clear");
-        head();
+        clearScr();
+        header();
 
-        printf("\nPlayer %i\n", intPlayer);
+        printf("\nPlayer %i\n", playerNum);
         printf("Type the number of the position you wanna play.\n");
         printMatrix();
         
-        charPlayer = (intPlayer == 1) ? 'X': '0';
-        
-        userPlay(charPlayer);
+        charPlayer = (playerNum == 1) ? 'X': '0';
+        userChoice(charPlayer);
 
         checkWin(&endGame);
         checkEnd();
 
         turns++;
-        intPlayer = ((turns % 2) == 0) ? 2: 1;
+        playerNum = ((turns % 2) == 0) ? 2: 1;
     }while(endGame == 0);
 }
 
-void head()
+
+
+void clearScr()
+{
+    #ifdef _WIN32
+    system("cls");
+    #endif
+
+    #ifdef linux
+    system("clear");
+    #endif
+}
+
+void header()
 {
     printf("--------------\n");
     printf(" TIC TAC TOE!\n");
@@ -85,7 +105,7 @@ void printMatrix()
     printf("\n");
 }
 
-void userPlay(char p)
+void userChoice(char p)
 {
     scanf(" %i", &position);
     switch (position)
@@ -97,7 +117,7 @@ void userPlay(char p)
             }
             else
             {
-                incPlay(p);
+                choiceErr(p);
             }
             break;
 
@@ -108,7 +128,7 @@ void userPlay(char p)
             }
             else
             {
-                incPlay(p);
+                choiceErr(p);
             }
             break;
 
@@ -119,7 +139,7 @@ void userPlay(char p)
             }
             else
             {
-                incPlay(p);
+                choiceErr(p);
             }
             break;
 
@@ -130,7 +150,7 @@ void userPlay(char p)
             }
             else
             {
-                incPlay(p);
+                choiceErr(p);
             }
             break;
 
@@ -141,7 +161,7 @@ void userPlay(char p)
             }
             else
             {
-                incPlay(p);
+                choiceErr(p);
             }
             break;
 
@@ -152,7 +172,7 @@ void userPlay(char p)
             }
             else
             {
-                incPlay(p);
+                choiceErr(p);
             }
             break;
 
@@ -163,7 +183,7 @@ void userPlay(char p)
             }
             else
             {
-                incPlay(p);
+                choiceErr(p);
             }
             break;
 
@@ -174,7 +194,7 @@ void userPlay(char p)
             }
             else
             {
-                incPlay(p);
+                choiceErr(p);
             }
             break;
 
@@ -185,63 +205,63 @@ void userPlay(char p)
             }
             else
             {
-                incPlay(p);
+                choiceErr(p);
             }
             break;
     }
 }
 
-void incPlay(char p)
+void choiceErr(char p)
 {
-    system("clear");
-    head();
+    clearScr();
+    header();
     printf("\nPosition already in use, choose another!\n\n");
     printMatrix();
-    userPlay(p);
+    userChoice(p);
 }
 
-void checkWin(int *p)
+void checkWin(int *p_endGame)
 {
     if (turns < 5)
     {
-        *p = 0;
+        *p_endGame = 0;
     }
     if (turns > 8)
     {
-        *p = 3;
+        *p_endGame = 3;
     }
 
     if ((matrix[0][0] == matrix[0][1]) && (matrix[0][1] == matrix[0][2])) // First row
     {
-        *p = (matrix[0][0] == 'X')? 1 : 2;
+        *p_endGame = (matrix[0][0] == 'X')? 1 : 2;
     }
     if (matrix[1][0] == matrix[1][1] && matrix[1][1] == matrix[1][2])// Second row
     {
-        *p = (matrix[1][0] == 'X')? 1 : 2;
+        *p_endGame = (matrix[1][0] == 'X')? 1 : 2;
     }
     if (matrix[2][0] == matrix[2][1] && matrix[2][1] == matrix[2][2])// Third row
     {
-        *p = (matrix[2][0] == 'X')? 1 : 2;
+        *p_endGame = (matrix[2][0] == 'X')? 1 : 2;
     }
     if (matrix[0][0] == matrix[1][0] && matrix[1][0] == matrix[2][0]) // First column
     {
-        *p = (matrix[0][0] == 'X')? 1 : 2;
+        *p_endGame = (matrix[0][0] == 'X')? 1 : 2;
     }
     if (matrix[0][1] == matrix[1][1] && matrix[1][1] == matrix[2][1]) // Second column
     {
-        *p = (matrix[0][1] == 'X')? 1 : 2;
+        *p_endGame = (matrix[0][1] == 'X')? 1 : 2;
     }
     if (matrix[0][2] == matrix[1][2] && matrix[1][2] == matrix[2][2]) // Third column
     {
-        *p = (matrix[0][2] == 'X')? 1 : 2;
+        *p_endGame = (matrix[0][2] == 'X')? 1 : 2;
     }
     if (matrix[0][0] == matrix[1][1] && matrix[1][1] == matrix[2][2]) // Main diagonal
     {
-        *p = (matrix[0][0] == 'X')? 1 : 2;
+        *p_endGame = (matrix[0][0] == 'X')? 1 : 2;
     }
     if (matrix[2][0] == matrix[1][1] && matrix[1][1] == matrix[0][2]) // Secondary diagonal
     {
-        *p = (matrix[2][0] == 'X')? 1 : 2;
+        *p_endGame = (matrix[2][0] == 'X')? 1 : 2;
     }
 }
 
@@ -249,15 +269,15 @@ void checkEnd()
 {
     if (endGame == 3)
     {
-        system("clear");
-        head();
+        clearScr();
+        header();
         printf("\nTIE!\n\n");
         printMatrix();
     }
     else if (endGame == 1 || endGame == 2)
     {
-        system("clear");
-        head();
+        clearScr();        
+        header();
         printf("\nPlayer %i wins!\n", endGame);
         printMatrix();
     }
