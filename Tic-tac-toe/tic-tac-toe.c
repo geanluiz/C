@@ -1,11 +1,11 @@
-// Tic Tac Toe game created from scratch
-// As a final project to the course on programing logic
-// Of the Youtube channel 'Curso em Vídeo" by Gustavo Guanabara
+/*  Cli Tic-Tac-Toe game created from scratch
+     as a final project to the course on programing logic
+     of the Youtube channel 'Curso em Vídeo" by Gustavo Guanabara */
 
 #include <stdio.h>
 #include <stdlib.h>
 
-
+// Functions
 void clearScr();
 void header();
 void genMatrix();
@@ -15,7 +15,7 @@ void choiceErr(char p);
 void checkWin(int *p_endGame);
 void checkEnd();
 
-// Board
+// Board 
 char matrix[3][3];
 
 // Variables
@@ -50,8 +50,6 @@ int main(void)
         playerNum = ((turns % 2) == 0) ? 2: 1;
     }while(endGame == 0);
 }
-
-
 
 void clearScr()
 {
