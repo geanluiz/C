@@ -3,7 +3,9 @@
         "stdlib.h": "c",
         "stdio.h": "c",
         "stdbool.h": "c",
-        "resistor_color.h": "c"
+        "resistor_color.h": "c",
+        "stdint.h": "c",
+        "types.h": "c"
     },
     "C_Cpp.dimInactiveRegions": true
 }
