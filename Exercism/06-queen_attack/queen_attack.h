@@ -1,6 +1,9 @@
 #ifndef QUEEN_ATTACK_H
 #define QUEEN_ATTACK_H
 
+#define MIN 0
+#define MAX 7
+
 #include <math.h>
 #include <stdint.h>
 #include <stdlib.h>
