@@ -23,3 +23,5 @@ attack_status_t can_attack(position_t queen_1, position_t queen_2)
     else
         return CAN_NOT_ATTACK;
 }
+
+// Needs adaptation to work here

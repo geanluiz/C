@@ -1,0 +1,4 @@
+testing
+https://medium.com/@kasra_mp/introduction-to-c-unit-testing-with-the-unity-framework-15903823ce8a
+https://cylab.be/blog/271/unit-testing-c-code?accept-cookies=1
+https://embarcados.com.br/introducao-ao-makefile/
